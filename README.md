@@ -11,9 +11,4 @@ Proyecto de prueba para fines educativos y universitarios.
 - `log_local.txt` → Backup si no se puede enviar al servidor.
 - `requirements.txt` → Dependencias.
 
-## Instalación
-
-1. Clonar el repositorio:
-```bash
-git clone <URL-del-repo>
-cd Keylogger_flask
+## Explicación
